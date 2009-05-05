@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Rrdwrapper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Rrdwrapper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/rrdwrapper_rb.html">
+                lib/rrdwrapper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>rrdwrapper.rb</h1>
+<pre>
+ rrdwrapper is a wrapper around the rrdtool executable.
+
+ At present, rrdwrapper has only been tested on win32. It should work with
+ minor changes on Linux and Mac. It has been tested with RRDTool v1.2.x.
+ I haven't tried it with RRDTool v1.3.x as I can't compile it on win32. :-)
+
+ TODO - not all rrdtool functions have been implemented
+
+ Copyright (c) 2009 Barrie Hill
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ MA 02110-1301, USA.
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000002">create</a>&nbsp;&nbsp;
+      <a href="#M000006">dump</a>&nbsp;&nbsp;
+      <a href="#M000008">fetch</a>&nbsp;&nbsp;
+      <a href="#M000009">first</a>&nbsp;&nbsp;
+      <a href="#M000005">graph</a>&nbsp;&nbsp;
+      <a href="#M000011">info</a>&nbsp;&nbsp;
+      <a href="#M000010">last</a>&nbsp;&nbsp;
+      <a href="#M000001">new</a>&nbsp;&nbsp;
+      <a href="#M000007">restore</a>&nbsp;&nbsp;
+      <a href="#M000003">update</a>&nbsp;&nbsp;
+      <a href="#M000004">updatev</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">rrdcmd</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+rrdcmd sets the full path to the rrdtool executable
+
+<pre>
+ Rrdwrapper.new(rrdcmd)
+</pre>
+<h3>Example</h3>
+<pre>
+ f = Rrdwrapper.new('D:\projects\rrdtool\rrdtool.exe')
+</pre>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000001.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000001.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(rrdcmd)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Rrdwrapper.html#M000001">new</a> rrdwrapper object
+</p>
+<p>
+You should set the rrd default font using a command similar to the example
+below. You may not get text on your graphs if you don&#8216;t.
+</p>
+<pre>
+ ENV[&quot;RRD_DEFAULT_FONT&quot;] = 'D:\projects\rrdtool\DejaVuSansMono-Roman.ttf'
+</pre>
+<h3>Example</h3>
+<pre>
+ ENV[&quot;RRD_DEFAULT_FONT&quot;] = 'D:\projects\rrdtool\DejaVuSansMono-Roman.ttf'
+ f = Rrdwrapper.new('D:\projects\rrdtool\rrdtool.exe')
+</pre>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000002.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000002.html');return false;">
+          <span class="method-name">create</span><span class="method-args">(filename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set up a <a href="Rrdwrapper.html#M000001">new</a> Round Robin Database
+</p>
+<pre>
+ create filename([--start|-b start time] [--step|-s step] [DS:ds-name:DST:dst arguments] [RRA:CF:cf arguments])
+
+ This method uses standard rrdtool create arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  start = Time.now.to_i
+  f.create(
+  &quot;#{rrddir}\\#{rrd}&quot;,
+  &quot;--start&quot;, &quot;#{start - 1}&quot;,
+  &quot;--step&quot;, &quot;300&quot;,
+  &quot;DS:a:GAUGE:600:U:U&quot;,
+  &quot;DS:b:GAUGE:600:U:U&quot;,
+  &quot;RRA:AVERAGE:0.5:1:300&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000006" class="method-detail">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000006.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000006.html');return false;">
+          <span class="method-name">dump</span><span class="method-args">(filename,xmlfilename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Dump the contents of an RRD to XML format
+</p>
+<pre>
+ dump(filename.rrd,filename.xml)
+
+ This method uses standard rrdtool dump arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  xml = &quot;#{name}.xml&quot;
+ f.dump(&quot;#{rrddir}\\#{rrd}&quot;,&quot;#{rrddir}\\#{xml}&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000008" class="method-detail">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000008.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000008.html');return false;">
+          <span class="method-name">fetch</span><span class="method-args">(filename,cf,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Fetch data from an RRD.
+</p>
+<pre>
+ fetch(filename,CF,[--resolution|-r resolution],[--start|-s start],[--end|-e end])
+
+ This method uses standard rrdtool fetch arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+ name = &quot;test&quot;
+ rrdpath = '\tmp'
+ rrddir = &quot;#{rrdpath}\\rra&quot;
+ rrd = &quot;#{name}.rrd&quot;
+ xml = &quot;#{name}.xml&quot;
+ start = Time.now.to_i
+ data = f.fetch(&quot;#{rrddir}\\#{rrd}&quot;, &quot;AVERAGE&quot;, &quot;--start&quot;, start.to_s, &quot;--end&quot;,(start + 10000).to_s)
+ puts &quot;got #{data.length} data points&quot;     # from #{fstart} to #{fend}&quot;
+ puts data
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000009.html');return false;">
+          <span class="method-name">first</span><span class="method-args">(filename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the date of the <a href="Rrdwrapper.html#M000009">first</a> data
+sample in an RRA within an RRD
+</p>
+<pre>
+ first(filename,[--rraindex number])
+
+ This method uses standard rrdtool first arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  xml = &quot;#{name}.xml&quot;
+  f.first(&quot;#{rrddir}\\#{rrd}&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000005" class="method-detail">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000005.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000005.html');return false;">
+          <span class="method-name">graph</span><span class="method-args">(filename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Graph a Round Robin Database
+</p>
+<pre>
+ graph(filename,[option ...],[data definition ...],[data calculation ...],[variable definition ...],[graph element ...],[print element ...])
+
+ This method uses standard rrdtool graph arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  xml = &quot;#{name}.xml&quot;
+  start = Time.now.to_i
+  rrdend = start + 1000*60
+  png = &quot;#{name}.png&quot;
+ f.graph(
+ &quot;#{rrddir}\\#{png}&quot;,
+ &quot;--title&quot;, &quot; \&quot;RubyRRD Demo\&quot;&quot;,
+ &quot;--start&quot;, &quot;#{start+3600}&quot;,
+ &quot;--end&quot;, &quot;#{rrdend}&quot;,
+ &quot;--interlace&quot;,
+ &quot;--imgformat&quot;, &quot;PNG&quot;,
+ &quot;--width=450&quot;,
+ &quot;DEF:a=#{rrddir}\\#{rrd}:a:AVERAGE&quot;,
+ &quot;DEF:b=#{rrddir}\\#{rrd}:b:AVERAGE&quot;,
+ &quot;CDEF:line=TIME,2400,%,300,LT,a,UNKN,IF&quot;,
+ &quot;AREA:b#00b6e4:beta&quot;,
+ &quot;AREA:line#0022e9:alpha&quot;,
+ &quot;LINE3:line#ff0000&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000011.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000011.html');return false;">
+          <span class="method-name">info</span><span class="method-args">(filename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extract header information from an RRD
+</p>
+<pre>
+ info(filename.rrd)
+
+ This method uses standard rrdtool info arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  f.info(&quot;#{rrddir}\\#{rrd}&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000010.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000010.html');return false;">
+          <span class="method-name">last</span><span class="method-args">(filename)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the date of the <a href="Rrdwrapper.html#M000010">last</a> data
+sample in an RRD
+</p>
+<pre>
+ last filename)
+
+ This method uses standard rrdtool last arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  xml = &quot;#{name}.xml&quot;
+  f.last(&quot;#{rrddir}\\#{rrd}&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000007" class="method-detail">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000007.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000007.html');return false;">
+          <span class="method-name">restore</span><span class="method-args">(xmlfilename,rrdfilename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Restore the contents of an RRD from its XML <a
+href="Rrdwrapper.html#M000006">dump</a> format
+</p>
+<pre>
+ restore(filename.xml,filename.rrd,[--range-check|-r])
+
+ This method uses standard rrdtool restore arguments separated by commas. Refer to the rrdtool documentation for details.
+
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  xml = &quot;#{name}.xml&quot;
+  f.restore(&quot;#{rrddir}\\#{xml}&quot;, &quot;#{rrddir}\\new.rrd&quot;)
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000003" class="method-detail">
+        <a name="M000003"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000003.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000003.html');return false;">
+          <span class="method-name">update</span><span class="method-args">(filename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Update a Round Robin Database
+</p>
+<pre>
+ update filename(filename,[--template|-t ds-name[:ds-name]...],N|timestamp:value[:value...],at-timestamp@value[:value...],[timestamp:value[:value...] ...])
+
+ This method uses standard rrdtool update arguments separated by commas. Refer to the rrdtool documentation for details.
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  puts &quot;updating #{rrd}&quot;
+  start.to_i.step(start.to_i + 300 * 300, 300) { |i|
+     f.update(&quot;#{rrddir}\\#{rrd}&quot;, &quot;#{i}:#{rand(100)}:#{Math.sin(i / 800) * 50 + 50}&quot;)
+  }
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000004" class="method-detail">
+        <a name="M000004"></a>
+
+        <div class="method-heading">
+          <a href="Rrdwrapper.src/M000004.html" target="Code" class="method-signature"
+            onclick="popupCode('Rrdwrapper.src/M000004.html');return false;">
+          <span class="method-name">updatev</span><span class="method-args">(filename,*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Update a Round Robin Database
+</p>
+<pre>
+ updatev(filename,[--template|-t ds-name[:ds-name]...],N|timestamp:value[:value...],at-timestamp@value[:value...],[timestamp:value[:value...] ...]
+
+ This method uses standard rrdtool update arguments separated by commas. Refer to the rrdtool documentation for details.
+ This alternate version of update takes the same arguments and performs the same function. The v stands for verbose.
+ Ruby variables can be used.
+</pre>
+<h3>Example</h3>
+<pre>
+  name = &quot;test&quot;
+  rrdpath = '\projects\rrdtool'
+  rrddir = &quot;#{rrdpath}\\rra&quot;
+  rrd = &quot;#{name}.rrd&quot;
+  puts &quot;updating #{rrd}&quot;
+  start.to_i.step(start.to_i + 300 * 300, 300) { |i|
+     f.updatev(&quot;#{rrddir}\\#{rrd}&quot;, &quot;#{i}:#{rand(100)}:#{Math.sin(i / 800) * 50 + 50}&quot;)
+  }
+</pre>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

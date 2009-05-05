@@ -1,0 +1,41 @@
+== cpu_usage.rb
+
+cpu_usage.rb is a Shoes demo program using rrdwrapper and sys-cpu that records
+historical cpu usage in a round robin database. It updates an image displayed
+in a Shoes window each minute. It's rough, but it is a start.
+
+rrdwrapper is a ruby wrapper around the rrdtool executable. There is a bug which
+means a brief dos screen pops up each time a graph image is created. The problem is
+that rrdtool graph returns the image size when it exits. I'm working on it.
+
+Sys-CPU is an extension that provides various bits of information regarding 
+your system's cpu(s)
+
+I have used files out of the following archives
+
+ * rrdtool-1.2.30-win32-perl510.zip (http://oss.oetiker.ch/rrdtool/pub/?M=D)
+ * rrdtool-1.2.30.tar.gz (http://oss.oetiker.ch/rrdtool/pub/?M=D)
+ * sys-cpu-0.6.1.tar.gz (http://raa.ruby-lang.org/project/sys-cpu/)
+
+At present, rrdwrapper has only been tested on win32. It should work with
+minor changes on Linux and Mac. It has been tested with RRDTool v1.2.x.
+I haven't tried it with RRDTool v1.3.x as I can't compile it on win32. :-)
+
+TODO - not all rrdtool functions have been implemented
+
+Copyright (c) 2009 Barrie Hill
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
