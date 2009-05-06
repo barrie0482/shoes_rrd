@@ -2,7 +2,7 @@ require "sys/cpu"
 include Sys
 require 'rrdwrapper'
 
-Shoes.app :title => "CPU Usage Demo",:height => 180, :width => 531 do
+Shoes.app :title => "CPU Usage Demo",:height => 180, :width => 570 do
   def create_rrd(rrdobject,filename,start)
     rrdobject.create(
       filename,
@@ -27,13 +27,17 @@ Shoes.app :title => "CPU Usage Demo",:height => 180, :width => 531 do
       "DEF:cpu=#{filename}:cpu:LAST",
       "AREA:cpu#0022e9:%cpu")
   end
-
-  ENV["RRD_DEFAULT_FONT"] = 'D:/bin/DejaVuSansMono-Roman.ttf'
   # You will need to change paths to suit your system.
   # This has only been tested on win32.
-  @f = Rrdwrapper.new('D:/bin/rrdtool.exe')
+  #################################################################
+  ENV["RRD_DEFAULT_FONT"] = 'D:/projects/shoes_rrd/bin/DejaVuSansMono-Roman.ttf'
+  @f = Rrdwrapper.new('D:/projects/shoes_rrd/bin/rrdtool.exe')
+  # Note: the rrdpath variable cannot use a path with a colon. 
+  # rrdtool uses the colon as a delimiter in some fields.
+  # The rrdpath needs to be on the same drive where the program is running
+  rrdpath = '/shoes_rrd'
+  #################################################################
   name = "cpu"
-  rrdpath = '.'
   rrddir = "#{rrdpath}/rra"
   rrd = "#{name}.rrd"
   @filename = "#{rrddir}/#{rrd}"
@@ -42,7 +46,7 @@ Shoes.app :title => "CPU Usage Demo",:height => 180, :width => 531 do
   create_rrd(@f,@filename,start)
   sample_seconds = 3600
 	sample_time = @f.last(@filename)
-	info sample_time
+	@f.update(@filename, "#{sample_time}:#{CPU.load_avg.to_s}")
 	update_image(@f,pngfile,sample_time,sample_seconds,@filename) 
   @cpu = image Dir.glob('cpu*.png').last
   every(60) do

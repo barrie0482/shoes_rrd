@@ -1,21 +1,42 @@
-== cpu_usage.rb
+ == cpu_usage.rb
 
 cpu_usage.rb is a Shoes demo program using rrdwrapper and sys-cpu that records
 historical cpu usage in a round robin database. It updates an image displayed
 in a Shoes window each minute. It's rough, but it is a start.
 
 rrdwrapper is a ruby wrapper around the rrdtool executable. There is a bug which
-means a brief dos screen pops up each time a graph image is created. The problem is
-that rrdtool graph returns the image size when it exits. I'm working on it.
+means a brief dos screen pops up each time a graph image is created. The problem
+is that rrdtool graph returns the image size when it exits. I'm working on it.
 
 Sys-CPU is an extension that provides various bits of information regarding 
 your system's cpu(s)
+
+Configuration:
+--------------
+
+The following three lines in cpu-usage.rb need to be modified to suit your
+configuration.
+Note: the rrdpath variable cannot use a path with a colon.
+rrdtool uses the colon as a delimiter in some fields.
+The rrdpath needs to be on the same drive where the program is running
+
+ENV["RRD_DEFAULT_FONT"] = 'D:/projects/shoes_rrd/bin/DejaVuSansMono-Roman.ttf'
+@f = Rrdwrapper.new('D:/projects/shoes_rrd/bin/rrdtool.exe')
+rrdpath = /shoes_rrd'
+
+screenshot.jpg in the archive shows an example of the expected output.
+
+You will need to install Shoes to run this program. Shoes can be downloaded at
+http://shoooes.net/
 
 I have used files out of the following archives
 
  * rrdtool-1.2.30-win32-perl510.zip (http://oss.oetiker.ch/rrdtool/pub/?M=D)
  * rrdtool-1.2.30.tar.gz (http://oss.oetiker.ch/rrdtool/pub/?M=D)
  * sys-cpu-0.6.1.tar.gz (http://raa.ruby-lang.org/project/sys-cpu/)
+
+
+
 
 At present, rrdwrapper has only been tested on win32. It should work with
 minor changes on Linux and Mac. It has been tested with RRDTool v1.2.x.
