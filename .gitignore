@@ -3,3 +3,4 @@ rrddoc
 nbproject
 lib/rra/cpu.rrd
 zips
+*.swp
